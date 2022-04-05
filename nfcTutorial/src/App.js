@@ -6,10 +6,13 @@ function App() {
     const [hasNfc, setHasNfc] = React.useState(null);
 
     React.useEffect(() => {
-        async function checkNfc(){
-            setHasNfc(await nfcManager.isSupported());
+        async function checkNfc() {
+            const suppported = await nfcManager.isSupported();
+            if (suppported) {
+                await nfcManager.start();
+            }
+            setHasNfc(suppported);
         }
-
         checkNfc();
     }, []);
 
