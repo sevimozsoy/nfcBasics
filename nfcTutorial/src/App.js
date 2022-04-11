@@ -29,16 +29,22 @@ function App() {
                 onPress={() => {
                     promptRef.current.setVisible(true);
                 }}>
-                    <Text>Test</Text>
+                <Text>Test</Text>
                 </TouchableOpacity>
-                <AndroidPrompt ref={promptRef} />
+                <AndroidPrompt ref={promptRef}/>
             </View>
         )
     }
     return (
         <View style={styles.wrapper}>
             <Text>Hello Nfc</Text>
-            
+            <TouchableOpacity 
+                onPress={() => {
+                    promptRef.current.setVisible(true);
+                }}>
+                <Text>Test</Text>
+                </TouchableOpacity>
+                <AndroidPrompt ref={promptRef}/>
         </View>
     )
 }

@@ -28,13 +28,13 @@ import {
          if(_visible) {
              setVisible(true);
              Animated.timing(animValue, {
-                 duration: 300,
+                 duration: 0,
                  toValue: 1,
                  useNativeDriver: true,
              }).start();
          }else{
              Animated.timing(animValue, {
-                 duration: 300,
+                 duration: 0,
                  toValue: 0,
                  useNativeDriver: true,
              }).start(() => {
@@ -64,13 +64,14 @@ import {
         <View style={styles.content}>
             <Animated.View style={[styles.backdrop, StyleSheet.absoluteFill, backdropAnimStyle]}/>
             <Animated.View style={[styles.prompt, promptAnimStyle]}>
-                <Text style={styles.hint}>{hintText || 'NFC'}</Text>
+                <Text style={styles.hintHeader}>{hintText || 'Taramaya Hazır'}</Text>
+                <Text style={styles.hint}>{hintText || 'Kartınızı sensöre yaklaştırın'}</Text>
                     <TouchableOpacity 
                     onPress={() => {
                         _setVisible(false);
                     }}
                     style={styles.btn}>
-                        <Text style={styles.hint}>IPTAL</Text>
+                        <Text>Vazgeç</Text>
                     </TouchableOpacity>
             </Animated.View>
         </View>
@@ -92,20 +93,25 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width - 2 * 20,
         backgroundColor: 'white',
         borderRadius: 8,
-        paddingVertical: 60,
+        paddingVertical: 40,
         paddingHorizontal: 20,
         alignItems: 'center',
         justifyContent: 'center'
     },
-    hint:{
+    hintHeader:{
         fontSize: 20,
-        marginBottom: 8
+        marginBottom: 20
+    },
+    hint:{
+        fontSize: 15,
     },
     btn:{
-        borderWidth:2,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderWidth:1,
         borderColor: '#ccc',
         borderRadius: 8,
-        padding: 10,
+        padding: 10
     }
 })
 export default React.forwardRef(AndroidPrompt);
