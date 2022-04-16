@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import nfcManager from 'react-native-nfc-manager';
-import AndroidPrompt from '../src/AndroidPrompt';
+import AndroidPrompt from "../components/AndroidPrompt";
 
 function App() {
     const [hasNfc, setHasNfc] = React.useState(null);
