@@ -1,17 +1,18 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet, Text, View, Dimensions, Image } from "react-native";
-import App from "./App";
+import { TouchableOpacity, StyleSheet, Text, View, Dimensions, ImageBackground } from "react-native";
 
-export default function Entry() {
+
+
+
+export default function Entry({ navigation }) {
+
     return (
         <View style={styles.content}>
-            <View style={styles.bgImage}>
-                <Image source={require('../assets/images/bg.png')} />
-            </View>
+            <ImageBackground resizeMode='cover' source={require('../assets/images/bg.png')} style={styles.bgImage} />
             <View style={styles.borderView}></View>
             <TouchableOpacity onPress={() => {
-                    // going to add a navigation to the app component
-                }} style={styles.butonSpecial}>
+                navigation.navigate("NfcCheck");
+            }} style={styles.buttonSpecial}>
                 <Text style={styles.buttonText}>Başlayın!</Text>
             </TouchableOpacity>
         </View>
@@ -23,9 +24,9 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
     },
-    bgImage:{
+    bgImage: {
         width: '100%',
-        height:'100%'
+        height: '100%'
     },
     borderView: {
         position: 'absolute',
@@ -34,9 +35,8 @@ const styles = StyleSheet.create({
         height: Dimensions.get('window').width,
         borderRadius: 12,
         backgroundColor: '#FF8B66',
-        zIndex: -1,
     },
-    butonSpecial: {
+    buttonSpecial: {
         position: 'absolute',
         bottom: 70,
         alignSelf: 'center',
