@@ -1,5 +1,6 @@
-import React from 'react';
-import { TouchableOpacity, StyleSheet, Text, SafeAreaView, View, Dimensions, ImageBackground, Image } from "react-native";
+import React, { useState } from 'react';
+import { StyleSheet, SafeAreaView, View, Dimensions, ImageBackground, Image } from "react-native";
+import CustomButton from '../components/CustomButton';
 import CustomInput from '../components/CustomInput';
 
 
@@ -7,20 +8,27 @@ import CustomInput from '../components/CustomInput';
 
 export default function Entry({ navigation }) {
 
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const onSignInPressed = () => {
+        navigation.navigate("NfcCheck");
+    };
+    const onForgotPressed = () => {
+        navigation.navigate("ForgotPassword");
+    };
+
     return (
         <SafeAreaView style={styles.content}>
             <ImageBackground resizeMode='cover' source={require('../../assets/images/bg.png')} style={styles.bgImage} />
             <View style={styles.borderView}>
-            <Image source={require('../../assets/images/logo.png')} style={styles.logo}/>
+                <Image source={require('../../assets/images/logo.png')} style={styles.logo} />
                 <View style={styles.input}>
-                    <CustomInput />
-                    <CustomInput />
+                    <CustomInput placeholder={'Kullanıcı Adı'} value={username} setValue={setUsername} />
+                    <CustomInput placeholder={'Parola'} value={password} setValue={setPassword} secureTextEntry={true} />
+                    <CustomButton onPress={onSignInPressed} text={'Giriş'} type="PRIMARY" />
+                    <CustomButton onPress={onForgotPressed} text={'Şifremi Unuttum'} type="TERTIARY"/>
                 </View>
-                <TouchableOpacity onPress={() => {
-                    navigation.navigate("NfcCheck");
-                }} style={styles.buttonSpecial}>
-                    <Text style={styles.buttonText}>Başlayın!</Text>
-                </TouchableOpacity>
             </View>
         </SafeAreaView>
 
@@ -35,15 +43,15 @@ const styles = StyleSheet.create({
         width: '100%',
         height: Dimensions.get('window').height / 2,
     },
-    logo:{
+    logo: {
         position: 'absolute',
-        width: '50%',
-        height: '50%',
+        width: '40%',
+        height: '40%',
     },
     borderView: {
         position: 'absolute',
         alignItems: 'center',
-        bottom:0,
+        bottom: -10,
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height / 1.5,
         borderRadius: 12,
@@ -51,22 +59,8 @@ const styles = StyleSheet.create({
     },
     input: {
         position: 'absolute',
-        bottom: 130,
+        bottom: 60,
+        alignItems:'center',
+        marginVertical: 5,
     },
-    buttonSpecial: {
-        position: 'absolute',
-        bottom: 70,
-        justifyContent: 'center',
-        backgroundColor: '#6D7CC4',
-        borderRadius: 12,
-        width: 300,
-        height: 43
-    },
-    buttonText: {
-        textAlign: 'center',
-        fontFamily: 'Montserrat-Medium',
-        color: '#ffff',
-        fontSize: 20,
-    }
-
 })
