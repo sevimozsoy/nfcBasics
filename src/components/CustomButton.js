@@ -11,7 +11,7 @@ const CustomButton = ({onPress,text, type}) => {
 
 const styles = StyleSheet.create({
     container: {
-        marginVertical: 5,
+        marginTop: 20,
         justifyContent: 'center',
     },
     container_PRIMARY:{
