@@ -37,12 +37,14 @@ export default function Entry({navigation}) {
             placeholder={'Kullanıcı Adı'}
             value={username}
             setValue={setUsername}
+            icon={'user'}
           />
           <CustomInput
             placeholder={'Parola'}
             value={password}
             setValue={setPassword}
             secureTextEntry={true}
+            icon={'key'}
           />
           <CustomButton
             onPress={onSignInPressed}
