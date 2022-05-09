@@ -15,8 +15,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     container_PRIMARY:{
-        backgroundColor: '#6D7CC4',
+        backgroundColor: 'rgba(214,214,214,0.3)',
         borderRadius: 12,
+
         width: 300,
         height: 43
     },
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     input_TERTIARY:{
-        color:'black',
+        color:'rgba(192,192,192,0.4)',
 
     }
 })
