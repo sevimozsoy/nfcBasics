@@ -21,18 +21,20 @@ export default function Entry({ navigation }) {
   };
 
   return (
-    <View style={styles.content}>
-      <ImageBackground
-        resizeMode="cover"
-        source={require('../../assets/images/bg.png')}
-        style={styles.bgImage}
-      >
-        <View style={styles.outer_border}>
-          <View style={styles.inner_border}>
+    <ImageBackground
+      resizeMode="cover"
+      source={require('../../assets/images/O-que-e-NFC-e-como-funciona-em-smartphones.jpg')}
+      style={styles.bgImage}
+    >
+      <View style={styles.outer_border}>
+        <View style={styles.inner_border}>
 
-          <Image style={styles.logo} source={require('../../assets/images/nfc-icon-18.jpg')}/>
-
-            <Text>Oturum Açın</Text>
+          <View style={styles.logo_field}>
+            <Image style={styles.logo} source={require('../../assets/images/pngegg.png')} />
+            <Text numberOfLines={1} style={styles.sign_in}>Oturum Açın</Text>
+          </View>
+          
+          <View style={styles.signIn_field}>
 
             <CustomInput
               placeholder={'Kullanıcı Adı'}
@@ -59,35 +61,59 @@ export default function Entry({ navigation }) {
             />
           </View>
         </View>
-      </ImageBackground>
-    </View >
+      </View>
+    </ImageBackground>
+
   );
 }
 
 const styles = StyleSheet.create({
-  content: {
+  bgImage: {
     flex: 1,
+    justifyContent:'center'
   },
-  logo:{
-    width:100,
-    height:100,
-    color:'white'
-  },
+
   inner_border: {
+    flex: 0.8,
     alignItems: 'center',
-    backgroundColor: 'rgba(52, 52, 52, 0.8)',
-    padding: 100,
+    backgroundColor: 'rgba(52, 52, 52, 0.5)',
+    padding: 50,
     borderRadius: 20,
     margin: 10
 
   },
+
   outer_border: {
     flex: 1,
     justifyContent: 'center',
     backgroundColor: 'rgba(52, 52, 52, 0.8)',
 
   },
-  bgImage: {
+
+  signIn_field:{
     flex: 1,
-  }
+  },
+
+  logo_field:{
+    flex:1.5,
+    
+  },
+  
+  logo: {
+    width: 190,
+    height: 190,
+    tintColor: 'white'
+
+  },
+
+  sign_in: {
+    
+    alignSelf:'center',
+    paddingTop:30,
+    fontSize: 25,
+    fontFamily:'Montserrat-Thin',
+    color:'white'
+
+  },
+
 });
