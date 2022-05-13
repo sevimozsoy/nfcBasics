@@ -14,7 +14,7 @@ export default function Entry({ navigation }) {
   const [password, setPassword] = useState('');
 
   const onSignInPressed = () => {
-    navigation.navigate('NfcCheck');
+    navigation.navigate('ReadNDEF');
   };
   const onForgotPressed = () => {
     navigation.navigate('ForgotPassword');
