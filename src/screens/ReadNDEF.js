@@ -1,31 +1,20 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, Text, Button, StyleSheet, Platform} from 'react-native';
 import NfcManager, {NfcTech} from 'react-native-nfc-manager';
+import AndroidPrompt from '../components/AndroidPrompt';
 
-// Pre-step, call this before any NFC operations
-NfcManager.start();
+
 
 function ReadNDEF() {
-  async function readNdef() {
-    try {
-      // register for the NFC tag with NDEF in it
-      await NfcManager.requestTechnology(NfcTech.Ndef);
-      // the resolved tag object will contain `ndefMessage` property
-      const tag = await NfcManager.getTag();
-      console.log('Tag found', tag);
-    } catch (ex) {
-      console.log('Oops!', ex);
-    } finally {
-      // stop the nfc scanning
-      NfcManager.cancelTechnologyRequest();
-    }
-  }
-
+  const promptRef = React.useRef();
   return (
     <View style={styles.wrapper}>
-      <TouchableOpacity onPress={readNdef}>
-        <Text>Scan a Tag</Text>
-      </TouchableOpacity>
+      <Button
+        onPress={() => {
+          promptRef.current.setVisible(true);
+        }}
+        title="scan"></Button>
+      <AndroidPrompt ref={promptRef} />
     </View>
   );
 }

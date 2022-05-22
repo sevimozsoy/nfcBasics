@@ -8,13 +8,20 @@ import {
 } from 'react-native';
 import CustomButton from '../components/CustomButton';
 import CustomInput from '../components/CustomInput';
+import nfcManager from 'react-native-nfc-manager';
 
 export default function Entry({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const onSignInPressed = () => {
-    navigation.navigate('ReadNDEF');
+    const supported = nfcManager.isSupported();
+    console.log(supported)
+    if(supported){
+      navigation.navigate('ReadNDEF');
+  }else{
+    navigation.navigate('NoNfc');
+  }
   };
   const onForgotPressed = () => {
     navigation.navigate('ForgotPassword');
