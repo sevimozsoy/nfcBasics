@@ -17,9 +17,7 @@ const styles = StyleSheet.create({
     container_PRIMARY:{
         backgroundColor: 'rgba(214,214,214,0.3)',
         borderRadius: 12,
-
-        width: 300,
-        height: 43
+        padding: 10
     },
     container_TERTIARY:{},
     input: {

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -10,21 +10,26 @@ import {
 import CustomButton from '../../components/CustomButton';
 import CustomInput from '../../components/CustomInput';
 import nfcManager from 'react-native-nfc-manager';
-import stylesView from '../../components/CustomView.style'
+import stylesView from '../../components/CustomView.style';
 
 export default function Entry({navigation}) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [hasNfc, setHasNfc] = useState();
 
-  const onSignInPressed = () => {
-    const supported = nfcManager.isSupported();
-    console.log(supported);
-    if (supported) {
+
+
+  async function onSignInPressed() {
+    const supported = await nfcManager.isSupported();
+    setHasNfc(supported);
+    console.log(hasNfc)
+    if (hasNfc === true) {
       navigation.navigate('ReadNDEF');
     } else {
-      Alert.alert('Telefonunuzda NFC bulunmamakta :(');
+      Alert.alert('Cihazınızda NFC bulunmamakta.');
     }
-  };
+  }
+
   const onForgotPressed = () => {
     navigation.navigate('ForgotPassword');
   };

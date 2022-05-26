@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Dimensions,
   Animated,
+  Alert
 } from 'react-native';
 import NfcManager, {NfcTech} from 'react-native-nfc-manager';
 import LottieView from 'lottie-react-native';
@@ -17,23 +18,25 @@ function AndroidPrompt(props, ref) {
   const [hintText, setHintText] = React.useState('');
   const animValue = useRef(new Animated.Value(0)).current;
 
-  useEffect(() => {
+  
+  async function readNdef() {
     NfcManager.start();
-    console.log('çalışıorum');
-    async () => {
-      try {
-        // register for the NFC tag with NDEF in it
-        await NfcManager.requestTechnology(NfcTech.Ndef);
-        // the resolved tag object will contain `ndefMessage` property
-        const tag = await NfcManager.getTag();
-        console.warn('Tag found', tag);
-      } catch (ex) {
-        console.warn('Oops!', ex);
-      } finally {
-        // stop the nfc scanning
-        NfcManager.cancelTechnologyRequest();
-      }
-    };
+    try {
+      // register for the NFC tag with NDEF in it
+      await NfcManager.requestTechnology(NfcTech.Ndef);
+      // the resolved tag object will contain `ndefMessage` property
+      const tag = await NfcManager.getTag();
+      console.warn('Tag found', tag);
+      _setVisible(false);
+    } catch (ex) {
+      Alert.alert("Tag Okunamadı :(")
+    }
+    
+  }
+
+  useEffect(() => {
+    console.log('çalışıorum');    
+    readNdef()
   }, []);
 
   useEffect(() => {
@@ -97,8 +100,9 @@ function AndroidPrompt(props, ref) {
             {hintText || 'Kartınızı sensöre yaklaştırın'}
           </Text>
           <TouchableOpacity
-            onPress={() => {
+            onPress={() => {               
               _setVisible(false);
+              NfcManager.cancelTechnologyRequest();
             }}
             style={styles.btn}>
             <Text>Vazgeç</Text>
@@ -142,7 +146,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ccc',
     borderRadius: 10,
     padding: 10,
-    width:200
+    width: 200,
   },
   lottie: {
     width: 200,
