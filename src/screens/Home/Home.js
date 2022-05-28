@@ -1,12 +1,12 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
-  StyleSheet,
   View,
   ImageBackground,
   Image,
   Text,
   Alert,
 } from 'react-native';
+import styles from './Home.style'
 import CustomButton from '../../components/CustomButton';
 import CustomInput from '../../components/CustomInput';
 import nfcManager from 'react-native-nfc-manager';
@@ -15,21 +15,20 @@ import stylesView from '../../components/CustomView.style';
 export default function Entry({navigation}) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [hasNfc, setHasNfc] = useState();
+  
 
-
-
+//checks for if the device have nfc or not
   async function onSignInPressed() {
-    const supported = await nfcManager.isSupported();
-    setHasNfc(supported);
-    console.log(hasNfc)
-    if (hasNfc === true) {
+    const supported = await nfcManager.isSupported();    
+    if (supported === true) {
       navigation.navigate('ReadNDEF');
     } else {
-      Alert.alert('Cihazınızda NFC bulunmamakta.');
+      Alert.alert('Oppps!','Cihazınızda Nfc bulunmadığı için işlemlerinizi gerçekleştiremiyoruz, lütfen başka bir cihazla deneyin.')
     }
   }
 
+
+  //navigates to password change screen
   const onForgotPressed = () => {
     navigation.navigate('ForgotPassword');
   };
@@ -82,31 +81,4 @@ export default function Entry({navigation}) {
   );
 }
 
-const styles = StyleSheet.create({
-  bgImage: {
-    flex: 1,
-    justifyContent: 'center',
-  },
 
-  signIn_field: {
-    flex: 1,
-  },
-
-  logo_field: {
-    flex: 1.5,
-  },
-
-  logo: {
-    width: 190,
-    height: 190,
-    tintColor: 'white',
-  },
-
-  sign_in: {
-    alignSelf: 'center',
-    paddingTop: 30,
-    fontSize: 25,
-    fontFamily: 'Montserrat-Thin',
-    color: 'white',
-  },
-});
