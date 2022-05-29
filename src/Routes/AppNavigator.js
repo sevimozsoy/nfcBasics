@@ -14,8 +14,8 @@ const AppNavigator = () => (
     <Navigator initialRouteName="HomePage" screenOptions={{headerShown: false}}>
       <Screen name="HomePage" component={Home}></Screen>
       <Screen name="ReadNDEF" component={ReadNDEF}></Screen>
-      <Screen name="ForgotPassword" component={ForgotPassword}></Screen>
       <Screen name="TagDetails" component={TagDetails}></Screen>
+      <Screen name="ForgotPassword" component={ForgotPassword}></Screen>  
     </Navigator>
   </NavigationContainer>
 );
