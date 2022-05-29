@@ -1,17 +1,28 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
 import AndroidPrompt from '../../components/AndroidPrompt';
 import styles from '../../components/CustomView.style';
 import stylesComp from './ReadNDEF.style';
 import LottieView from 'lottie-react-native';
 import CustomButton from '../../components/CustomButton';
+import NfcManager from 'react-native-nfc-manager';
 
-function ReadNDEF() {
-  const promptRef = React.useRef();
+function ReadNDEF({navigation}) {
+const [prompt, setPrompt] = useState(false);
 
-  const callPrompt = () => {
-    promptRef.current.setVisible(true);
-  };
+const callPrompt =  () => {
+  setPrompt(true);
+  NfcManager.start();
+};
+
+
+useEffect(() => {
+
+  if(prompt === true){
+    console.log(prompt)
+  }
+},[prompt])  
+
 
   return (
     <View style={styles.container}>
@@ -27,7 +38,7 @@ function ReadNDEF() {
             </View>
             <CustomButton onPress={callPrompt} text={'TARA'} type="PRIMARY" />
 
-            {<AndroidPrompt ref={promptRef} />}
+            {prompt && <AndroidPrompt prompt={prompt} setPrompt={setPrompt} navigation={navigation}/>}
           
         </View>
       </View>
