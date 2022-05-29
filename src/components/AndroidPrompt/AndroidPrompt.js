@@ -1,9 +1,10 @@
 import Modal from 'react-native-modal';
-import {Button, Text, View, Dimensions} from 'react-native';
+import {Button, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import styles from './Android.style';
+import styles from './AndroidPrompt.style';
 import LottieView from 'lottie-react-native';
 import NfcManager, {NfcTech} from 'react-native-nfc-manager';
+import CustomButton from '../CustomButton';
 
 function ModalTester({prompt, setPrompt, navigation}) {
   async function nfc() {
@@ -11,7 +12,7 @@ function ModalTester({prompt, setPrompt, navigation}) {
       // register for the NFC tag with NDEF in it
       await NfcManager.requestTechnology(NfcTech.Ndef);
       // the resolved tag object will contain `ndefMessage` property
-      const tag = await NfcManager.getTag();
+      const tag = await NfcManager.ndefHandler.getCachedNdefMessageAndroid();
       console.warn('Tag found', tag);
       navigation.navigate('TagDetails');
     } catch (ex) {
@@ -36,13 +37,20 @@ function ModalTester({prompt, setPrompt, navigation}) {
       <Modal isVisible={prompt} swipeDirection="down" style={styles.modal}>
         <View style={styles.container}>
           <LottieView
-            source={require('../../../assets/animations/68987-nfc-blue-reader.json')}
+            source={require('../../../assets/animations/lf30_editor_ck3py0ei.json')}
             autoPlay
             loop
             style={styles.lottie}
           />
-          <Text>bottom half</Text>
-          <Button title="Hide modal" onPress={toggleModal} />
+          <View style={styles.lowerPrompt}>
+            <Text style={styles.text}>Tarama işlemi yapmaya hazır!</Text>
+            <CustomButton
+              style={styles.button}
+              text={'İptal'}
+              type="PRIMARY_BLACK"
+              onPress={toggleModal}
+            />
+          </View>
         </View>
       </Modal>
     </View>
