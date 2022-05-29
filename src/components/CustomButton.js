@@ -19,6 +19,12 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         padding: 10
     },
+    container_PRIMARY_BLACK:{
+        backgroundColor: '#8d8d8d',
+        borderRadius: 12,
+        padding: 10,
+        margin: 15
+    },
     container_TERTIARY:{},
     input: {
         textAlign: 'center',
@@ -31,8 +37,12 @@ const styles = StyleSheet.create({
     },
     input_TERTIARY:{
         color:'rgba(192,192,192,0.4)',
-
-    }
+    },
+    input_PRIMARY_BLACK:{
+        color: '#ffff',
+        fontWeight: 'bold',
+        fontSize: 20,
+    },
 })
 
 export default CustomButton
