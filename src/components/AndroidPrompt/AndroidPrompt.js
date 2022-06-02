@@ -1,23 +1,36 @@
 import Modal from 'react-native-modal';
-import {Button, Text, View, Dimensions} from 'react-native';
+import {Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import styles from './Android.style';
+import styles from './AndroidPrompt.style';
 import LottieView from 'lottie-react-native';
-import NfcManager, {NfcTech} from 'react-native-nfc-manager';
+import NfcManager, {NfcTech, Ndef} from 'react-native-nfc-manager';
+import CustomButton from '../CustomButton';
 
-function ModalTester({prompt, setPrompt, navigation}) {
+function AndroidPrompt({prompt, setPrompt, navigation}) {
+  
+  let tag = null;
+  
   async function nfc() {
     try {
-      // register for the NFC tag with NDEF in it
-      await NfcManager.requestTechnology(NfcTech.Ndef);
-      // the resolved tag object will contain `ndefMessage` property
-      const tag = await NfcManager.getTag();
-      console.warn('Tag found', tag);
-      navigation.navigate('TagDetails');
+      await NfcManager.requestTechnology([NfcTech.Ndef]);
+      tag = await NfcManager.getTag();
+      tag.ndefStatus = await NfcManager.ndefHandler.getNdefStatus();
+      
+      const ndef =
+        Array.isArray(tag.ndefMessage) && tag.ndefMessage.length > 0
+          ? tag.ndefMessage[0]
+          : null;
+
+      let text = Ndef.text.decodePayload(ndef.payload);
+      
+      const tagDetailsJSON = JSON.parse(text);
+      setPrompt(false);
+      
+      navigation.navigate('TagDetails', {userDetails: tagDetailsJSON});
+    
     } catch (ex) {
       console.warn('Oops!', ex);
     } finally {
-      // stop the nfc scanning
       NfcManager.cancelTechnologyRequest();
     }
   }
@@ -33,20 +46,31 @@ function ModalTester({prompt, setPrompt, navigation}) {
 
   return (
     <View>
-      <Modal isVisible={prompt} swipeDirection="down" style={styles.modal}>
+      <Modal
+        isVisible={prompt}
+        onSwipeComplete={toggleModal}
+        swipeDirection="down"
+        style={styles.modal}>
         <View style={styles.container}>
           <LottieView
-            source={require('../../../assets/animations/68987-nfc-blue-reader.json')}
+            source={require('../../../assets/animations/lf30_editor_ck3py0ei.json')}
             autoPlay
             loop
             style={styles.lottie}
           />
-          <Text>bottom half</Text>
-          <Button title="Hide modal" onPress={toggleModal} />
+          <View style={styles.lowerPrompt}>
+            <Text style={styles.text}>Tarama işlemi yapmaya hazır!</Text>
+            <CustomButton
+              style={styles.button}
+              text={'İptal'}
+              type="PRIMARY_BLACK"
+              onPress={toggleModal}
+            />
+          </View>
         </View>
       </Modal>
     </View>
   );
 }
 
-export default ModalTester;
+export default AndroidPrompt;
