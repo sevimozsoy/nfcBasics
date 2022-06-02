@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {View, Platform} from 'react-native';
+import {View, Platform, Text} from 'react-native';
 import AndroidPrompt from '../../components/AndroidPrompt';
 import styles from '../../components/CustomView.style';
-import stylesComp from './ReadNDEF.style';
+import stylesComp from './ScanTutorial.style';
 import LottieView from 'lottie-react-native';
 import CustomButton from '../../components/CustomButton';
 import NfcManager from 'react-native-nfc-manager';
@@ -11,6 +11,7 @@ function ReadNDEF({navigation}) {
   const [prompt, setPrompt] = useState(false);
 
   const platform = Platform.OS;
+
   const renderPrompt = () => {
     if (platform === 'android') {
       return (
@@ -22,7 +23,7 @@ function ReadNDEF({navigation}) {
           />
         )
       );
-    } else return null;
+    } else return null; //ios nfc config comes here.
   };
 
   const callPrompt = () => {
@@ -32,7 +33,6 @@ function ReadNDEF({navigation}) {
 
   useEffect(() => {
     if (prompt === true) {
-      console.log(prompt);
     }
   }, [prompt]);
 
@@ -40,9 +40,15 @@ function ReadNDEF({navigation}) {
     <View style={styles.container}>
       <View style={styles.outer_border}>
         <View style={styles.inner_border}>
-          <View style={{flex: 1}}>
+          <View
+            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <View style={stylesComp.textView}>
+              <Text style={stylesComp.text}>
+                Kartınızı aşağıdaki gibi okutmayı deneyin!
+              </Text>
+            </View>
             <LottieView
-              source={require('../../../assets/animations/98904-nfc-id-card-scan-iphone.json')}
+              source={require('../../../assets/animations/50037-nfc-card-read.json')}
               autoPlay
               loop
               style={stylesComp.lottie}
