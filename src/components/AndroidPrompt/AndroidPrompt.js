@@ -1,5 +1,5 @@
 import Modal from 'react-native-modal';
-import { Text, View} from 'react-native';
+import {Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import styles from './AndroidPrompt.style';
 import LottieView from 'lottie-react-native';
@@ -7,21 +7,27 @@ import NfcManager, {NfcTech, Ndef} from 'react-native-nfc-manager';
 import CustomButton from '../CustomButton';
 
 function AndroidPrompt({prompt, setPrompt, navigation}) {
-
+  
   let tag = null;
+  
   async function nfc() {
     try {
       await NfcManager.requestTechnology([NfcTech.Ndef]);
       tag = await NfcManager.getTag();
       tag.ndefStatus = await NfcManager.ndefHandler.getNdefStatus();
+      
       const ndef =
         Array.isArray(tag.ndefMessage) && tag.ndefMessage.length > 0
           ? tag.ndefMessage[0]
           : null;
+
       let text = Ndef.text.decodePayload(ndef.payload);
+      
       const tagDetailsJSON = JSON.parse(text);
-      setPrompt(false)
+      setPrompt(false);
+      
       navigation.navigate('TagDetails', {userDetails: tagDetailsJSON});
+    
     } catch (ex) {
       console.warn('Oops!', ex);
     } finally {
