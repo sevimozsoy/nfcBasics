@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import styles from '../../components/CustomView.style';
+import styles from '../../components/CustomView/CustomView.style';
 
 function ForgotPassword() {
   return (
@@ -15,3 +15,4 @@ function ForgotPassword() {
 }
 
 export default ForgotPassword;
+ 

@@ -1,7 +1,7 @@
 import {View, Text, Button} from 'react-native';
 import React from 'react';
 import styles from './TagDetails.style';
-import stylesView from '../../components/CustomView.style';
+import stylesView from '../../components/CustomView/CustomView.style';
 
 const TagDetails = ({route, navigation}) => {
   const {userDetails} = route.params;

@@ -2,7 +2,7 @@ import {View, TextInput, StyleSheet, Dimensions} from 'react-native';
 import React from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-const CustomInput = ({value, setValue, placeholder, secureTextEntry, icon}) => {
+const CustomInput = ({value, onChangeText ,placeholder, secureTextEntry, icon}) => {
   return (
     <View style={styles.container}>
       <FontAwesome5 name={icon} solid style={styles.icon} color={'gray'} size={15} />
@@ -10,7 +10,7 @@ const CustomInput = ({value, setValue, placeholder, secureTextEntry, icon}) => {
         style={styles.input}
         placeholder={placeholder}
         value={value}
-        onChangeText={setValue}
+        onChangeText={onChangeText}
         secureTextEntry={secureTextEntry}
         placeholderTextColor='gray'
       />

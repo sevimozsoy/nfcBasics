@@ -23,6 +23,6 @@ export default StyleSheet.create({
     alignSelf:'center',
     fontSize:16, 
     marginBottom:22,
-
+    color:'#8d8d8d'
   }
 });

@@ -4,7 +4,7 @@ import React, {useEffect, useState} from 'react';
 import styles from './AndroidPrompt.style';
 import LottieView from 'lottie-react-native';
 import NfcManager, {NfcTech, Ndef} from 'react-native-nfc-manager';
-import CustomButton from '../CustomButton';
+import CustomButton from '../CustomButton/CustomButton';
 
 function AndroidPrompt({prompt, setPrompt, navigation}) {
   

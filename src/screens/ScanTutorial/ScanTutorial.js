@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import {View, Platform, Text} from 'react-native';
 import AndroidPrompt from '../../components/AndroidPrompt';
-import styles from '../../components/CustomView.style';
+import styles from '../../components/CustomView/CustomView.style';
 import stylesComp from './ScanTutorial.style';
 import LottieView from 'lottie-react-native';
-import CustomButton from '../../components/CustomButton';
+import CustomButton from '../../components/CustomButton/CustomButton';
 import NfcManager from 'react-native-nfc-manager';
 
-function ReadNDEF({navigation}) {
+function ScanTutorial({navigation}) {
   const [prompt, setPrompt] = useState(false);
 
   const platform = Platform.OS;
@@ -62,4 +62,4 @@ function ReadNDEF({navigation}) {
   );
 }
 
-export default ReadNDEF;
+export default ScanTutorial;
