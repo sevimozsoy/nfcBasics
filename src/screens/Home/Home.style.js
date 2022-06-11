@@ -6,23 +6,20 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
 
-  signIn_field: {
-    flex: 1,
-  },
-
   logo_field: {
-    flex: 1.5,
+    flex: 0.9,
   },
 
   logo: {
     width: 190,
     height: 190,
+    justifyContent:'center',
+    alignSelf:'center',
     tintColor: 'white',
   },
 
   sign_in: {
     alignSelf: 'center',
-    paddingTop: 30,
     fontSize: 25,
     fontFamily: 'Montserrat-Thin',
     color: 'white',

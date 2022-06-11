@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+apply plugin: 'com.google.gms.google-services'
 
 import com.android.build.OutputFile
 
@@ -264,6 +265,11 @@ dependencies {
     implementation project(':lottie-react-native')
 
     implementation project(':react-native-config')
+
+    implementation platform('com.google.firebase:firebase-bom:30.1.0')
+
+    implementation 'com.google.firebase:firebase-analytics'
+
 
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {

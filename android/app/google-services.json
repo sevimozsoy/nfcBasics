@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "52267511862",
+    "project_id": "nfctutorial-f1d16",
+    "storage_bucket": "nfctutorial-f1d16.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52267511862:android:0878719809e656e72de897",
+        "android_client_info": {
+          "package_name": "com.nfctutorial"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "52267511862-jm40gr26u0uqksjv72eddau3647tgb9q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1_LfQgfg3za1Rq2kpJwH2iTPaBYbvBfo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "52267511862-jm40gr26u0uqksjv72eddau3647tgb9q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
