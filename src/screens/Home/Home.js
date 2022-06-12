@@ -51,6 +51,7 @@ export default function Entry({navigation}) {
           'Cihazınızda NFC olmadığı için istediğiniz işlemleri gerçekleştiremeyeceğiz :(',
         type: 'danger',
       });
+      return;
     }
     setLoading(true);
     if (values.username == '' || values.password == '') {
