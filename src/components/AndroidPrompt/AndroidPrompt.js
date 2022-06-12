@@ -5,42 +5,54 @@ import styles from './AndroidPrompt.style';
 import LottieView from 'lottie-react-native';
 import NfcManager, {NfcTech, Ndef} from 'react-native-nfc-manager';
 import CustomButton from '../CustomButton/CustomButton';
+import {showMessage} from 'react-native-flash-message';
+import authErrorMessage from '../../../utils/authErrorMessage';
 
 function AndroidPrompt({prompt, setPrompt, navigation}) {
-  
   let tag = null;
-  
+  const [cancelled, setCancelled] = useState();
+
   async function nfc() {
     try {
       await NfcManager.requestTechnology([NfcTech.Ndef]);
       tag = await NfcManager.getTag();
       tag.ndefStatus = await NfcManager.ndefHandler.getNdefStatus();
-      
+
       const ndef =
         Array.isArray(tag.ndefMessage) && tag.ndefMessage.length > 0
           ? tag.ndefMessage[0]
           : null;
 
       let text = Ndef.text.decodePayload(ndef.payload);
-      
+
       const tagDetailsJSON = JSON.parse(text);
       setPrompt(false);
-      
+
       navigation.navigate('TagDetails', {userDetails: tagDetailsJSON});
-    
     } catch (ex) {
-      console.warn('Oops!', ex);
+      if (cancelled == !true) {
+        showMessage({
+          message: authErrorMessage(ex),
+          type: 'danger',
+        });
+      }
     } finally {
       NfcManager.cancelTechnologyRequest();
     }
   }
 
   useEffect(() => {
+    let cancel = false;
     nfc();
+    if (cancel) return;
+    return () => {
+      cancel = true;
+    };
   }, []);
 
   const toggleModal = () => {
     setPrompt(false);
+    setCancelled(true);
     NfcManager.cancelTechnologyRequest();
   };
 

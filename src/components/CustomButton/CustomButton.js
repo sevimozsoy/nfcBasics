@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   container_PRIMARY_BLACK: {
     backgroundColor: '#8d8d8d',
     borderRadius: 12,
-    padding: 10,
+    padding: 8,
     margin: 15,
   },
   container_TERTIARY: {},
@@ -47,7 +47,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   input_TERTIARY: {
-    color: 'rgba(192,192,192,0.4)',
+    color: 'rgba(192,192,192,0.8)',
+    
   },
   input_PRIMARY_BLACK: {
     color: '#ffff',

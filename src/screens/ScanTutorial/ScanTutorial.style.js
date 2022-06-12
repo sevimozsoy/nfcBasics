@@ -14,7 +14,7 @@ export default StyleSheet.create({
     },
     textView:{
         flex:0.4,
-        backgroundColor:'#303030',
+        backgroundColor:'rgb(27,27,27)',
         padding:25,
         height: Dimensions.get('window').height,
         borderRadius:10

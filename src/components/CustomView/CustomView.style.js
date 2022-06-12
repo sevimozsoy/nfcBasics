@@ -5,18 +5,18 @@ export default StyleSheet.create({
     flex: 1,
   },
   inner_border: {
-    flex: 0.8,
+    flex: 0.9,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(52, 52, 52, 0.5)',
+    backgroundColor: 'rgba(31, 32, 50, 0.8)',
     padding: 50,
     borderRadius: 20,
     margin: 10,
   },
 
   outer_border: {
-    flex: 1,
+    flex: 2,
     justifyContent: 'center',
-    backgroundColor: 'rgba(52, 52, 52, 0.8)',
+    backgroundColor: 'rgba(31, 32, 50, 0.8)',
   },
 });

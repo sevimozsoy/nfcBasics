@@ -1,27 +1,35 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet,Dimensions} from 'react-native';
 
 export default StyleSheet.create({
   bgImage: {
     flex: 1,
     justifyContent: 'center',
+    width:Dimensions.get("screen").width,
+    height:Dimensions.get("screen").height - 20
+  },
+
+  keyboardAvoid:{
+    margin:10
   },
 
   logo_field: {
-    flex: 0.9,
+    flex: 0.7,
+    marginBottom:50,
+    padding:10,
   },
 
   logo: {
-    width: 190,
-    height: 190,
+    width: 150,
+    height: 150,
     justifyContent:'center',
     alignSelf:'center',
     tintColor: 'white',
+
+    
   },
 
-  sign_in: {
-    alignSelf: 'center',
-    fontSize: 25,
-    fontFamily: 'Montserrat-Thin',
-    color: 'white',
-  },
+  signIn_field:{
+    flex:1.7
+  }
+
 });

@@ -3,46 +3,40 @@ import {
   View,
   ImageBackground,
   Image,
-  Alert,
   KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import styles from './Home.style';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import CustomInput from '../../components/CustomInput/CustomInput';
-import nfcManager from 'react-native-nfc-manager';
 import stylesView from '../../components/CustomView/CustomView.style';
 import {Formik} from 'formik';
 import auth from '@react-native-firebase/auth';
 import {showMessage} from 'react-native-flash-message';
 import authErrorMessage from '../../../utils/authErrorMessage';
+import RNBootSplash from 'react-native-bootsplash';
+import nfcManager from 'react-native-nfc-manager';
 
 export default function Entry({navigation}) {
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState(false);
-
-  //checks for if the device have nfc or not
-  async function onSignInPressed() {
-    const supported = await nfcManager.isSupported();
-    if (supported === true) {
-      navigation.navigate('ScanTutorial');
-    } else {
-      Alert.alert(
-        'Oppps!',
-        'Cihazınızda Nfc bulunmadığı için işlemlerinizi gerçekleştiremiyoruz, lütfen başka bir cihazla deneyin.',
-      );
-    }
-  }
+  const [hasNfc, setHasNfc] = useState(false);
 
   useEffect(() => {
-    auth().onAuthStateChanged(function (user) {
-      if (user) {
-        setUser(user);
-        console.log(user)
-      } else {
-        console.log("kullanıcı yok")
-      }
-    });
+    RNBootSplash.hide({fade: true});
+
+    checkNfc();
+    return () => {
+      setHasNfc();
+    };
   }, []);
+
+  //checks for if the device have nfc or not
+  async function checkNfc() {
+    const supported = await nfcManager.isSupported();
+    if (supported === true) {
+      setHasNfc(true);
+    }
+  }
 
   //navigates to password change screen
   const onForgotPressed = () => {
@@ -51,6 +45,13 @@ export default function Entry({navigation}) {
 
   //onSubmit checking values in here and if it fits the statements navigates ScanTutorial
   async function submit(values) {
+    if (hasNfc == !true) {
+      showMessage({
+        message:
+          'Cihazınızda NFC olmadığı için istediğiniz işlemleri gerçekleştiremeyeceğiz :(',
+        type: 'danger',
+      });
+    }
     setLoading(true);
     if (values.username == '' || values.password == '') {
       showMessage({
@@ -64,7 +65,6 @@ export default function Entry({navigation}) {
         .then(userCredentials => {
           const user = userCredentials.user;
           console.log('Registered with:', user.email);
-          onSignInPressed();
           setLoading(false);
         })
         .catch(error => {
@@ -77,59 +77,55 @@ export default function Entry({navigation}) {
     }
   }
 
-  if(user){
-    onSignInPressed();
-  }
-
   return (
     <ImageBackground
       resizeMode="cover"
-      source={require('../../../assets/images/O-que-e-NFC-e-como-funciona-em-smartphones.jpg')}
+      source={require('../../../assets/images/lovepik-technology-circuit-chip-mobile-phone-wallpaper-background-image_400706151.jpg')}
       style={styles.bgImage}>
-      <View style={stylesView.outer_border}>
-        <View style={stylesView.inner_border}>
-          <KeyboardAvoidingView behavior="height">
-            <View style={styles.logo_field}>
-              <Image
-                resizeMethod="scale"
-                style={styles.logo}
-                source={require('../../../assets/images/pngegg.png')}
-              />
-            </View>
-            <Formik
-              initialValues={{username: '', password: ''}}
-              onSubmit={submit}>
-              {({handleSubmit, handleChange, values}) => (
-                <View style={styles.signIn_field}>
-                  <CustomInput
-                    placeholder={'Kullanıcı Adı'}
-                    value={values.username}
-                    onChangeText={handleChange('username')}
-                    icon={'user'}
-                  />
-                  <CustomInput
-                    placeholder={'Parola'}
-                    value={values.password}
-                    onChangeText={handleChange('password')}
-                    secureTextEntry={true}
-                    icon={'key'}
-                  />
-                  <CustomButton
-                    onPress={handleSubmit}
-                    loading={loading}
-                    text={'Oturum aç'}
-                    type="PRIMARY"
-                  />
-                  <CustomButton
-                    onPress={onForgotPressed}
-                    text={'Şifremi Unuttum'}
-                    type="TERTIARY"
-                  />
-                </View>
-              )}
-            </Formik>
-          </KeyboardAvoidingView>
-        </View>
+      <View style={stylesView.inner_border}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={styles.keyboardAvoid}>
+          <View style={styles.logo_field}>
+            <Image
+              resizeMethod="scale"
+              style={styles.logo}
+              source={require('../../../assets/images/pngegg.png')}
+            />
+          </View>
+          <Formik
+            initialValues={{username: '', password: ''}}
+            onSubmit={submit}>
+            {({handleSubmit, handleChange, values}) => (
+              <View style={styles.signIn_field}>
+                <CustomInput
+                  placeholder={'Kullanıcı Adı'}
+                  value={values.username}
+                  onChangeText={handleChange('username')}
+                  icon={'user'}
+                />
+                <CustomInput
+                  placeholder={'Parola'}
+                  value={values.password}
+                  onChangeText={handleChange('password')}
+                  secureTextEntry={true}
+                  icon={'key'}
+                />
+                <CustomButton
+                  onPress={handleSubmit}
+                  loading={loading}
+                  text={'Oturum aç'}
+                  type="PRIMARY"
+                />
+                <CustomButton
+                  onPress={onForgotPressed}
+                  text={'Şifremi Unuttum'}
+                  type="TERTIARY"
+                />
+              </View>
+            )}
+          </Formik>
+        </KeyboardAvoidingView>
       </View>
     </ImageBackground>
   );

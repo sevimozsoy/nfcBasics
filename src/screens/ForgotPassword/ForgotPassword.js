@@ -45,10 +45,9 @@ function ForgotPassword() {
             resizeMethod="scale"
             style={stylesForgotPassword.logo}
           />
-          <Text>ForgotPassword</Text>
           <Formik initialValues={{username: ''}} onSubmit={forgotPassword}>
             {({handleSubmit, handleChange, values}) => (
-              <View style={styles.signIn_field}>
+              <View style={stylesForgotPassword.signIn_field}>
                 <CustomInput
                   placeholder={'E-postanızı giriniz...'}
                   value={values.username}

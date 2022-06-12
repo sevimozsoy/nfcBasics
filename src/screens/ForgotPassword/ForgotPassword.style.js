@@ -2,9 +2,17 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
     logo:{
-    width: 190,
-    height: 190,
+    width: 100,
+    height: 100,
     tintColor: 'white',
-    margin: 30
+    margin: 30,
+    position:'absolute',
+    top:10
+    
+    },
+    signIn_field:{
+        flex:1,
+        margin:30,
+        justifyContent:'flex-end'
     }
 })

@@ -6,6 +6,7 @@ import stylesComp from './ScanTutorial.style';
 import LottieView from 'lottie-react-native';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import NfcManager from 'react-native-nfc-manager';
+import RNBootSplash from 'react-native-bootsplash';
 
 function ScanTutorial({navigation}) {
   const [prompt, setPrompt] = useState(false);
@@ -32,9 +33,13 @@ function ScanTutorial({navigation}) {
   };
 
   useEffect(() => {
-    if (prompt === true) {
-    }
-  }, [prompt]);
+    let cancel = false;
+    RNBootSplash.hide({fade: true});
+    if (cancel) return;
+    return () => {
+      cancel = true;
+    };
+  }, []);
 
   return (
     <View style={styles.container}>

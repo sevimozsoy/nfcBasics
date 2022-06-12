@@ -7,7 +7,9 @@ export default StyleSheet.create({
   },
   text:{
       color:'white',
-      backgroundColor:'#707070',
+      backgroundColor:'rgb(27,27,27)',
       padding: 15,
+      borderRadius:10,
+      margin: 15,
   }
 });
